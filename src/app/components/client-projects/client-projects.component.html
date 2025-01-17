@@ -24,9 +24,9 @@
                                 <td>{{ project?.empName }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm me-2"
-                                        >Edit</button>
+                                      (click)="onEdit(project)"  >Edit</button>
                                     <button class="btn btn-danger btn-sm"
-                                        >Delete</button>
+                                    (click)="onDelete(project?.clientProjectId)"  >Delete</button>
                                 </td>
                             </tr>
                         </tbody>

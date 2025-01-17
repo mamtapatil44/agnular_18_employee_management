@@ -71,8 +71,25 @@ export class ClientProjectsComponent implements OnInit {
   this.clientService.getAllClientProjects().subscribe((res)=>{
     if(res.result){
       this.clientProjectsList = res.data;
-      console.log("his.clientProjectsList ",this.clientProjectsList)
     }
   })
+ }
+
+ onEdit(data:ClientProject){
+  this.clientProjectObj = data;
+  this.projectForm.patchValue(this.clientProjectObj)
+
+ }
+ onDelete(id:any){
+  const isDelete = confirm("Are you want to delete it?")
+  if(isDelete){
+    this.clientService.deleteClientProject(id).subscribe((res)=>{
+      if(res.result){
+      alert("Project deleted Successfully...");
+      this.getAllClientProjects();
+      }
+    })
+  }
+  
  }
 }
