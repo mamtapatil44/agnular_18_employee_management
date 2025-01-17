@@ -1,22 +1,38 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-8">
         <div class="card">
-            <div class="card-header bg-success">Client List</div>
+            <div class="card-header bg-success text-white fs-4 fs-md-5">Client List</div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
-                        <table class=" table table-bordered">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
                             <thead>
-                                <th>Sr No</th>
-                                <th>Company Name</th>
-                                <th>Person Name</th>
-                                <th>Contact No</th>
-                                <th>City</th>
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Company Name</th>
+                                    <th>Person Name</th>
+                                    <th>Contact No</th>
+                                    <th>City</th>
+                                    <th>Action</th>
+                                </tr>
+
                             </thead>
                             <tbody>
+                                @for(item of clientList; track $index){
                                 <tr>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.companyName}}</td>
+                                    <td>{{item.contactPersonName}}</td>
+                                    <td>{{item.contactNo}}</td>
+                                    <td>{{item.city}}</td>
+                                    <td class="d-flex justify-content-start">
+                                        <button class="btn btn-primary me-2" (click)="editClient(item)">Edit</button>
+                                        <button class="btn btn-danger" (click)="deleteClient(item.clientId)">Delete</button>
+                                    </td>
 
                                 </tr>
+                                }
+
                             </tbody>
                         </table>
                     </div>
@@ -25,56 +41,77 @@
             </div>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-12 col-md-4">
         <div class="card">
-            <div class="card-header bg-success">New Client</div>
+            <div class="card-header bg-success">{{clientObj.clientId === 0 ? 'New Client' : 'Update Client'}}</div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="">Person Name</label>
-                        <input class="form-control" [(ngModel)]="clientObj.contactPersonName"  placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Company Name</label>
-                        <input class="form-control" [(ngModel)]="clientObj.companyName" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Contact No</label>
-                        <input class="form-control" [(ngModel)]="clientObj.contactNo" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">City</label>
-                        <input class="form-control" [(ngModel)]="clientObj.city" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">State</label>
-                        <input class="form-control" [(ngModel)]="clientObj.state" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Pincode</label>
-                        <input class="form-control" [(ngModel)]="clientObj.pincode" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Address</label>
-                        <textarea class="form-control" [(ngModel)]="clientObj.address" placeholder=""></textarea>
-                    </div>
-                    <div class="col-6">
-                        <label for="">Gst No</label>
-                        <input class="form-control" [(ngModel)]="clientObj.gstNo" placeholder="">
-                    </div>
-                    <div class="col-6">
-                        <label for="">Reg No</label>
-                        <input class="form-control" [(ngModel)]="clientObj.regNo" placeholder="">
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-12 text-center">
-                        <button class="btn btn-primary mx-1" (click)="onClientSave()">Save</button>
-                        <button class="btn btn-secondary mx-1">Cancle</button>
-                    </div>
+                <form #form="ngForm">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label for="">Person Name</label>
+                            <input class="form-control" name="contactPersonName" #personName=ngModel required
+                                [(ngModel)]="clientObj.contactPersonName" placeholder="">
+                            @if(personName.touched){
+                            <div class="text-danger">
+                                @if(personName?.errors?.['required']){
+                                <span>Name is required</span>
+                                }
+                            </div>
 
-                </div>
+                            }
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Company Name</label>
+                            <input class="form-control" name="companyName" [(ngModel)]="clientObj.companyName"
+                                placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Contact No</label>
+                            <input class="form-control" name="contactNo" [(ngModel)]="clientObj.contactNo"
+                                placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">City</label>
+                            <input class="form-control" name="city" [(ngModel)]="clientObj.city" placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">State</label>
+                            <input class="form-control" name="state" [(ngModel)]="clientObj.state" placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Pincode</label>
+                            <input class="form-control" name="pincode" [(ngModel)]="clientObj.pincode" placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Address</label>
+                            <textarea class="form-control" name="address" [(ngModel)]="clientObj.address"
+                                placeholder=""></textarea>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Employee Strength</label>
+                            <input class="form-control" name="employeeStrength" [(ngModel)]="clientObj.employeeStrength"
+                                placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Gst No</label>
+                            <input class="form-control" name="gstNo" [(ngModel)]="clientObj.gstNo" placeholder="">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="">Registration No</label>
+                            <input class="form-control" name="regNo" [(ngModel)]="clientObj.regNo" placeholder="">
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-primary mx-1" [disabled]="!form.valid"
+                                (click)="onClientSave()">{{clientObj.clientId === 0 ? 'Save' : 'Update'}}</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="btn btn-secondary mx-1">Cancle</button>
+                        </div>
 
+                    </div>
+                </form>
             </div>
         </div>
     </div>

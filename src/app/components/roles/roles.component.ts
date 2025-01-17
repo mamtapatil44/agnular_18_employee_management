@@ -12,21 +12,21 @@ import { MasterService } from '../../services/master.service';
   styleUrl: './roles.component.css'
 })
 export class RolesComponent implements OnInit {
-  roleList: IRole[] = [];
-  masterService = inject(MasterService)
+ roleList :IRole[] =[];
+ masterService = inject(MasterService)
 
   ngOnInit(): void {
     console.log("in role component")
     this.getAllRoles();
   }
 
-  getAllRoles() {
-    this.masterService.getRoles().subscribe((res: ResposeModel) => {
-      this.roleList = res.data
-    }
-    )
-
+  getAllRoles(){
+    this.masterService.getRoles().subscribe((res:ResposeModel)=>{
+         this.roleList = res.data
+       }
+       )
+     
   }
-
+  
 
 }

@@ -11,3 +11,12 @@ export interface ResposeModel{
     result:boolean,
     data:any
 }
+
+export interface IEmployee{
+    empId:number,
+    empName:string,
+    empCode:string,
+    empEmailId:string,
+    empDesignation:string,
+    empRole:string
+}

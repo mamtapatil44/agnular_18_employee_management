@@ -1,0 +1,134 @@
+<div class="row mt-4">
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white fs-4 fs-md-5">Client Project List</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Project Name</th>
+                                <th>Start Date</th>
+                                <th>Expected End Date</th>
+                                <th>Lead By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of clientProjectsList; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ project?.projectName }}</td>
+                                <td>{{ project?.startDate }}</td>
+                                <td>{{ project?.expectedEndDate }}</td>
+                                <td>{{ project?.empName }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm me-2"
+                                        >Edit</button>
+                                    <button class="btn btn-danger btn-sm"
+                                        >Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white fs-4 fs-md-5">
+                New Project
+            </div>
+            <div class="card-body">
+                <form [formGroup]="projectForm">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <label for="projectName">Project Name</label>
+                        <input id="projectName" formControlName="projectName" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="startDate">Start Date</label>
+                        <input id="startDate" formControlName="startDate" type="date" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="expectedendDate">Expected End Date</label>
+                        <input id="expectedendDate" formControlName="expectedendDate" type="date" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="completedDate">Completed Date</label>
+                        <input id="completedDate" formControlName="completedDate" type="date" class="form-control" />
+
+                    </div>
+     
+                 
+                    <div class="col-12 col-sm-6">
+                        <label for="contactPerson">Contact Person</label>
+                        <input id="contactPerson" formControlName="contactPerson" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="contactPersonContactNo">Contact Person Mobile</label>
+                        <input id="contactPersonContactNo" formControlName="contactPersonContactNo" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="contactPersonEmailId">Contact Person Email</label>
+                        <input id="contactPersonEmailId" formControlName="contactPersonEmailId" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="totalEmpWorking">Total Emp</label>
+                        <input id="totalEmpWorking" formControlName="totalEmpWorking" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-12">
+                        <label for="projectCost">Project Cost</label>
+                        <input id="projectCost" formControlName="projectCost" type="" class="form-control" />
+
+                    </div>
+                    <div class="col-12 col-sm-12">
+                        <label for="projectDetails">Project Details</label>
+                        <textarea id="projectDetails" formControlName="projectDetails" type="" class="form-control" ></textarea>
+
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <label for="leadByEmpId">Select Lead</label>
+                        <select id="leadByEmpId" formControlName="leadByEmpId" type="" class="form-control">
+                            <option>Select Employee</option>
+                            @for(employee of employeeList;track $index){
+                                <option  [value]="employee.empId">{{employee?.empName}}-{{employee?.empCode}}</option>
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <label for="clientId">Select Client</label>
+                        <select id="clientId" formControlName="clientId" type="" class="form-control">
+                            <option>Select Client</option>
+                            @for(item of clientList;track $index){
+                                <option  [value]="item.clientId">{{item?.companyName}}</option>
+                            }
+                        </select>
+                    </div>
+          
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6 text-center">
+                        <button class="btn btn-primary mx-1" [disabled]="!projectForm.valid" (click)="onProjectSave()">Save</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="btn btn-secondary mx-1">Cancle</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
