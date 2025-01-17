@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { IRole } from '../../model/interface/role';
+import { IRole, ResposeModel } from '../../model/interface/role';
 import { CommonModule } from '@angular/common';
+import { MasterService } from '../../services/master.service';
 
 @Component({
   selector: 'app-roles',
@@ -11,20 +12,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './roles.component.css'
 })
 export class RolesComponent implements OnInit {
- roleList :IRole[] =[];
- http = inject(HttpClient)
+  roleList: IRole[] = [];
+  masterService = inject(MasterService)
 
   ngOnInit(): void {
     console.log("in role component")
     this.getAllRoles();
   }
 
-  getAllRoles(){
-    this.http.get("https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllRoles").subscribe((res:any)=>{
-      this.roleList = res.data;
-    })
-     
+  getAllRoles() {
+    this.masterService.getRoles().subscribe((res: ResposeModel) => {
+      this.roleList = res.data
+    }
+    )
+
   }
-  
+
 
 }
