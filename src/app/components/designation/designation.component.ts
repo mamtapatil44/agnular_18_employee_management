@@ -12,7 +12,8 @@ import { IDesignation, ResposeModel } from '../../model/interface/role';
 })
 export class DesignationComponent implements OnInit {
   masterService = inject(MasterService);
-  designationList :IDesignation[] =[]
+  designationList :IDesignation[] =[];
+  isLoader: boolean = true;
   ngOnInit(): void {
     this.getDesignation();
     
@@ -20,9 +21,14 @@ export class DesignationComponent implements OnInit {
 
   getDesignation(){
     this.masterService.getDesignations().subscribe((res:ResposeModel)=>{
-      this.designationList = res.data
+      this.designationList = res.data;
+      this.isLoader = false;
+    },
+    (error) => {
+      this.isLoader = false;
     }
     )
+    
   }
 
 }
