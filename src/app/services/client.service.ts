@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 export class ClientService {
 
   constructor(private http:HttpClient) { }
-
+  
   getAllClients():Observable<ResposeModel>{
     return this.http.get<ResposeModel>(environment.API_URL +"GetAllClients")
   }
