@@ -1,21 +1,64 @@
-<div class="row">
-    <div class="col-12">
-      <div class="table-responsive">  
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Sr No</th>
-              <th>Role Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of roleList">
-              <td>{{ item?.roleId }}</td>
-              <td>{{ item?.role }}</td>
-            </tr>
-          </tbody>
-        </table>
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Add Multiple Roles</h5>
+        <form (ngSubmit)="addRoles(rolesForm.value)" #rolesForm="ngForm">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1 me-2">
+              <input
+                type="text"
+                class="form-control"
+                id="roleNames"
+                name="roleNames"
+                [(ngModel)]="roleInput"
+                required
+                placeholder="Enter comma-separated role names"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary remove-bottom-padding">
+              Add Roles
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Role List</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Sr No</th>
+                <th>Role Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of roleList; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item?.role }}</td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    (click)="onDeleteRole(item.roleId)"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   

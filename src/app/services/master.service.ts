@@ -13,10 +13,10 @@ export class MasterService {
 
   // Designations
   getDesignations():Observable<ResposeModel>{
-    return this.http.get<ResposeModel>("https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllDesignation")
+    return this.http.get<ResposeModel>(environment.API_URL+"GetAllDesignation")
   }
   addBulkDesignations(obj:any):Observable<ResposeModel>{
-    return this.http.post<ResposeModel>(environment.API_URL +"https://freeapi.miniprojectideas.com/api/ClientStrive/AddUpdateBulkDesignation",obj)
+    return this.http.post<ResposeModel>(environment.API_URL +"AddUpdateBulkDesignation",obj)
   }
   updateDesignations(obj:any):Observable<ResposeModel>{
     return this.http.put<ResposeModel>(environment.API_URL +"UpdateEmployee",obj)
@@ -25,15 +25,15 @@ export class MasterService {
     return this.http.delete<ResposeModel>(environment.API_URL +"DeleteDesignationById?designationId="+id)
   }
 
-  // role:
+  // roles:
   getRoles():Observable<ResposeModel>{
-    return this.http.get<ResposeModel>("https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllRoles")
+    return this.http.get<ResposeModel>(environment.API_URL+"GetAllRoles")
   }
   addBulkRole(obj:any):Observable<ResposeModel>{
-    return this.http.post<ResposeModel>(environment.API_URL +"https://freeapi.miniprojectideas.com/api/ClientStrive/AddUpdateBulkRoles",obj)
+    return this.http.post<ResposeModel>(environment.API_URL +"AddUpdateBulkRoles",obj)
   }
   deleteRole(id:number):Observable<ResposeModel>{
-    return this.http.delete<ResposeModel>(environment.API_URL +"DeleteRoleById'?roleid="+id)
+    return this.http.delete<ResposeModel>(environment.API_URL +"DeleteRoleById?roleid="+id)
   }
  
 
@@ -44,10 +44,10 @@ export class MasterService {
       return this.http.get<ResposeModel>(environment.API_URL +"GetAllEmployee")
     }
     getEmployee(id:number):Observable<ResposeModel>{
-      return this.http.get<ResposeModel>(environment.API_URL +"https://freeapi.miniprojectideas.com/api/ClientStrive/GetEmployeeByEmployeeId?id=" +id)
+      return this.http.get<ResposeModel>(environment.API_URL +"GetEmployeeByEmployeeId?id=" +id)
     }
     addEmployee(obj:any):Observable<ResposeModel>{
-      return this.http.post<ResposeModel>(environment.API_URL +"https://freeapi.miniprojectideas.com/api/ClientStrive/CreateNewEmployee",obj)
+      return this.http.post<ResposeModel>(environment.API_URL +"CreateNewEmployee",obj)
     }
     updateEmployee(obj:any):Observable<ResposeModel>{
       return this.http.put<ResposeModel>(environment.API_URL +"UpdateEmployee",obj)
