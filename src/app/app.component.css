@@ -1,0 +1,20 @@
+/* Ensure the spinner is positioned relative to the entire container */
+/* Style for the spinner overlay */
+.spinner-overlay {
+    position: fixed; /* Fixes the spinner to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;  /* Full screen width */
+    height: 100vh; /* Full screen height */
+    display: flex; /* Flexbox to center the spinner */
+    justify-content: center !important; /* Horizontally center */
+    align-items: center !important; /* Vertically center */
+    background-color: rgba(255, 255, 255, 0.7); /* Optional semi-transparent background */
+    z-index: 1050 !important; /* Ensure the spinner is above all other content */
+  }
+  
+  /* Optional styling to size the spinner */
+  .spinner-border {
+    width: 4rem;
+    height: 4rem;
+  }

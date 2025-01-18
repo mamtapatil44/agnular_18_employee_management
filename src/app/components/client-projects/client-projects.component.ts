@@ -5,11 +5,13 @@ import { ClientProject } from '../../model/class/client-project';
 import { ClientService } from '../../services/client.service';
 import { IEmployee } from '../../model/interface/role';
 import { Client } from '../../model/class/client';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-client-projects',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule,NgxPaginationModule],
   templateUrl: './client-projects.component.html',
   styleUrl: './client-projects.component.css'
 })
@@ -17,9 +19,10 @@ export class ClientProjectsComponent implements OnInit {
   clientProjectObj :ClientProject = new ClientProject()
   clientProjectsList : ClientProject[] =[];
   clientService = inject(ClientService);
+  loaderService = inject(LoaderService);
   clientList: Client[] = [];
   employeeList : IEmployee[] =[];
-
+  currentPage:number=1;
 
   projectForm :FormGroup = new FormGroup({
     clientProjectId : new FormControl(0),
@@ -63,23 +66,24 @@ export class ClientProjectsComponent implements OnInit {
  onProjectSave(){
   this.clientService.addUpdateClientProject(this.projectForm.value).subscribe((res)=>{
     if(res.result){
-     this.getAllClientProjects()
+     this.getAllClientProjects();
+     this.projectForm.reset();
     }
   })
  }
  getAllClientProjects(){
+  this.loaderService.showLoader();
   this.clientService.getAllClientProjects().subscribe((res)=>{
     if(res.result){
       this.clientProjectsList = res.data;
+      this.loaderService.hideLoader();
     }
+  },(err)=>{
+    this.loaderService.hideLoader();
   })
  }
 
- onEdit(data:ClientProject){
-  this.clientProjectObj = data;
-  this.projectForm.patchValue(this.clientProjectObj)
 
- }
  onDelete(id:any){
   const isDelete = confirm("Are you want to delete it?")
   if(isDelete){
@@ -90,6 +94,9 @@ export class ClientProjectsComponent implements OnInit {
       }
     })
   }
-  
+ }
+
+ onCancle(){
+  this.projectForm.reset();
  }
 }

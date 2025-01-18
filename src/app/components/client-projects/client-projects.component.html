@@ -16,15 +16,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let project of clientProjectsList; let i = index">
+                            <tr *ngFor="let project of clientProjectsList | paginate: { itemsPerPage: 10, currentPage: currentPage}; let i = index">
                                 <td>{{ i + 1 }}</td>
                                 <td>{{ project?.projectName }}</td>
                                 <td>{{ project?.startDate }}</td>
                                 <td>{{ project?.expectedEndDate }}</td>
                                 <td>{{ project?.empName }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm me-2"
-                                      (click)="onEdit(project)"  >Edit</button>
+                                   
                                     <button class="btn btn-danger btn-sm"
                                     (click)="onDelete(project?.clientProjectId)"  >Delete</button>
                                 </td>
@@ -32,6 +31,7 @@
                         </tbody>
                     </table>
                 </div>
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
         </div>
     </div>
@@ -122,7 +122,7 @@
                         <button class="btn btn-primary mx-1" [disabled]="!projectForm.valid" (click)="onProjectSave()">Save</button>
                     </div>
                     <div class="col-6 text-center">
-                        <button class="btn btn-secondary mx-1">Cancle</button>
+                        <button class="btn btn-secondary mx-1" (click)="onCancle()">Cancle</button>
                     </div>
                 </div>
             </form>

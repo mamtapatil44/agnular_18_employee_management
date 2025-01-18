@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Client } from '../../model/class/client';
 import { FormsModule } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-client',
@@ -14,6 +15,7 @@ export class ClientComponent implements OnInit {
   clientObj: Client = new Client();
   clientList: Client[] = [];
   clientService = inject(ClientService)
+  loaderService = inject(LoaderService)
 
   ngOnInit(): void {
     this.getAllCliensts();
@@ -21,12 +23,14 @@ export class ClientComponent implements OnInit {
   }
 
   getAllCliensts() {
+    this.loaderService.showLoader();
     this.clientService.getAllClients().subscribe((res) => {
       if (res.data) {
-        this.clientList = res.data
+        this.clientList = res.data;
+        this.loaderService.hideLoader();
       }
     }, (err) => {
-
+      this.loaderService.hideLoader();
     })
   }
   onClientSave() {

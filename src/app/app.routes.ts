@@ -5,6 +5,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { ClientProjectsComponent } from './components/client-projects/client-projects.component';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,7 @@ export const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
+        canActivate:[authGuard],
         children:[
             {
                 path: 'master',

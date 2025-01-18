@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MasterComponent } from './components/master/master.component';
+import { LoaderService } from './services/loader.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,5 @@ import { MasterComponent } from './components/master/master.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'agnular_18_employee_management';
+  title = '';
 }
