@@ -11,7 +11,6 @@ export class LoaderService {
     return this.loaderSignal;
   }
 
-
   showLoader(): void {
     this.loaderSignal.set(true); 
   }

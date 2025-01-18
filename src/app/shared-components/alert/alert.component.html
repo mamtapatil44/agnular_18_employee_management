@@ -1,1 +1,13 @@
-<p>alert works!</p>
+<div *ngIf="confirmationDialog()" class="confirmation-dialog">
+    <div class="confirmation-overlay">
+      <div class="confirmation-box">
+        <h3>{{ confirmationDialog()?.title }}</h3>
+        <p>{{ confirmationDialog()?.message }}</p>
+        <div class="confirmation-buttons">
+          <button class="btn btn-primary" (click)="handleResponse(true)">Yes</button>
+          <button class="btn btn-secondary" (click)="handleResponse(false)">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

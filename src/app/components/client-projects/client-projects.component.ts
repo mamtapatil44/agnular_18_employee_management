@@ -7,6 +7,8 @@ import { IEmployee } from '../../model/interface/role';
 import { Client } from '../../model/class/client';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
+import { ConfirmService } from '../../services/confirm.service';
 
 @Component({
   selector: 'app-client-projects',
@@ -20,6 +22,8 @@ export class ClientProjectsComponent implements OnInit {
   clientProjectsList : ClientProject[] =[];
   clientService = inject(ClientService);
   loaderService = inject(LoaderService);
+  toasterService = inject(ToasterService);
+  confirmService = inject(ConfirmService);
   clientList: Client[] = [];
   employeeList : IEmployee[] =[];
   currentPage:number=1;
@@ -77,6 +81,7 @@ export class ClientProjectsComponent implements OnInit {
     if(res.result){
       this.clientProjectsList = res.data;
       this.loaderService.hideLoader();
+
     }
   },(err)=>{
     this.loaderService.hideLoader();
@@ -84,14 +89,16 @@ export class ClientProjectsComponent implements OnInit {
  }
 
 
- onDelete(id:any){
-  const isDelete = confirm("Are you want to delete it?")
+ async onDelete(id:any){
+  const isDelete =  await this.confirmService.confirm("Are you sure you want to delete this project?")
   if(isDelete){
     this.clientService.deleteClientProject(id).subscribe((res)=>{
       if(res.result){
-      alert("Project deleted Successfully...");
+      this.toasterService.showToast('Project deleted successfully!', 'success');
       this.getAllClientProjects();
       }
+    },(err)=>{
+      this.toasterService.showToast('Failed to delete project. Please try again.', 'error');
     })
   }
  }

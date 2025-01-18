@@ -3,11 +3,13 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { Observable } from 'rxjs';
 import { LoaderService } from '../../services/loader.service';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from '../../shared-components/toast/toast.component';
+import { AlertComponent } from '../../shared-components/alert/alert.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet,RouterLink,RouterLinkActive,CommonModule],
+  imports: [RouterOutlet,RouterLink,RouterLinkActive,CommonModule,ToastComponent,AlertComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
