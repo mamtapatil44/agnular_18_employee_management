@@ -18,7 +18,7 @@
 
                             </thead>
                             <tbody>
-                                @for(item of clientList; track $index){
+                                @for(item of clientList | paginate: { itemsPerPage: 10, currentPage: currentPage}; track $index){
                                 <tr>
                                     <td>{{$index+1}}</td>
                                     <td>{{item.companyName}}</td>
@@ -36,6 +36,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
                 </div>
 
             </div>

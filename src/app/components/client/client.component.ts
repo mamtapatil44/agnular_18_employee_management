@@ -3,11 +3,12 @@ import { Client } from '../../model/class/client';
 import { FormsModule } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { LoaderService } from '../../services/loader.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,NgxPaginationModule],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
@@ -16,6 +17,7 @@ export class ClientComponent implements OnInit {
   clientList: Client[] = [];
   clientService = inject(ClientService)
   loaderService = inject(LoaderService)
+  currentPage :number =1;
 
   ngOnInit(): void {
     this.getAllCliensts();
