@@ -1,14 +1,58 @@
-<div class="row">
-    @for(item of designationList; track $index ){
-    <div class="col-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">{{item.designationId}}</h4>
-                <p class="card-text">{{item.designation}}</p>
-                <a href="#" class="card-link">Edit</a>
-                <a href="#" class="card-link">Delete</a>
+
+<div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add New Designations</h5>
+          <form (ngSubmit)="addDesignations(designationForm.value)" #designationForm="ngForm">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1 me-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="designationNames"
+                  name="designationNames"
+                  [(ngModel)]="newDesignationInput"
+                  required
+                  placeholder="Enter comma-separated designation names"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Add Designations
+              </button>
             </div>
+          </form>
         </div>
+      </div>
     </div>
-    }
-</div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title mb-4">Designations List</h3>
+          
+          <div class="row">
+            @for(item of designationList | paginate: { itemsPerPage: 12, currentPage: currentPage}; track $index) {
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ item.designationId }}</h4>
+                    <p class="card-text">{{ item.designation }}</p>
+                    <button class="btn btn-danger" (click)="deleteDesignation(item.designationId)">Delete</button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  

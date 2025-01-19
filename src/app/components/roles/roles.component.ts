@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmService } from '../../services/confirm.service';
 import { LoaderService } from '../../services/loader.service';
 import { ToasterService } from '../../services/toaster.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-roles',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,NgxPaginationModule],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.css'
 })
@@ -22,6 +23,7 @@ export class RolesComponent implements OnInit {
  loaderService = inject(LoaderService)
  toasterService = inject(ToasterService)
  roleInput: string = ''; 
+ currentPage :number =1
   roles: any;
   ngOnInit(): void {
     this.getAllRoles();
