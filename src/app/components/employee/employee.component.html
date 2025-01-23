@@ -1,1 +1,160 @@
-<p>employee works!</p>
+<div class="row mt-4">
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white fs-4 fs-md-5">Employee List</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Employee Name</th>
+                                <th>Employee Code</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let employee of employeeList | paginate: { itemsPerPage: 10, currentPage: currentPage}; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ employee?.empName }}</td>
+                                <td>{{ employee?.empCode }}</td>
+                                <td>{{ employee?.empEmailId }}</td>
+                                <td>{{ employee?.role }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="onDelete(employee?.empId)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white fs-4 fs-md-5">
+                New Employee
+            </div>
+            <div class="card-body">
+                <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <label for="empName">Employee Name</label>
+                            <input id="empName" formControlName="empName" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empCode">Employee Code</label>
+                            <input id="empCode" formControlName="empCode" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empEmailId">Email</label>
+                            <input id="empEmailId" formControlName="empEmailId" type="email" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empContactNo">Contact No</label>
+                            <input id="empContactNo" formControlName="empContactNo" type="tel" class="form-control" />
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="empAltContactNo">Alternate Contact No</label>
+                            <input id="empAltContactNo" formControlName="empAltContactNo" type="tel" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empPersonalEmailId">Personal Email</label>
+                            <input id="empPersonalEmailId" formControlName="empPersonalEmailId" type="email" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empExpTotalYear">Experience (Years)</label>
+                            <input id="empExpTotalYear" formControlName="empExpTotalYear" type="number" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empExpTotalMonth">Experience (Months)</label>
+                            <input id="empExpTotalMonth" formControlName="empExpTotalMonth" type="number" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empCity">City</label>
+                            <input id="empCity" formControlName="empCity" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empState">State</label>
+                            <input id="empState" formControlName="empState" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empPinCode">Pin Code</label>
+                            <input id="empPinCode" formControlName="empPinCode" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empAddress">Address</label>
+                            <input id="empAddress" formControlName="empAddress" type="text" class="form-control" />
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="empPerCity">Permanent City</label>
+                            <input id="empPerCity" formControlName="empPerCity" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empPerState">Permanent State</label>
+                            <input id="empPerState" formControlName="empPerState" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empPerPinCode">Permanent Pin Code</label>
+                            <input id="empPerPinCode" formControlName="empPerPinCode" type="text" class="form-control" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="empPerAddress">Permanent Address</label>
+                            <input id="empPerAddress" formControlName="empPerAddress" type="text" class="form-control" />
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="password">Password</label>
+                            <input id="password" formControlName="password" type="password" class="form-control" />
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="leadByEmpId">Select Lead</label>
+                            <select id="leadByEmpId" formControlName="leadByEmpId" class="form-control">
+                                <option>Select Employee</option>
+                                <option *ngFor="let employee of employeeList" [value]="employee.empId">
+                                    {{ employee?.empName }} - {{ employee?.empCode }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="roleId">Role</label>
+                            <select id="roleId" formControlName="roleId" class="form-control">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let role of roleList" [value]="role.roleId">
+                                    {{ role?.role }}
+                                </option>
+                            </select>
+                        </div>
+                
+                        <div class="col-12 col-sm-6">
+                            <label for="empDesignationId">Designation</label>
+                            <select id="empDesignationId" formControlName="empDesignationId" class="form-control">
+                                <option value="">Select Designation</option>
+                                <option *ngFor="let designation of designationList" [value]="designation.designationId">
+                                    {{ designation?.designation }}
+                                </option>
+                            </select> 
+                            
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-primary mx-1" [disabled]="!employeeForm.valid" type="submit">Save</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="btn btn-secondary mx-1" (click)="onCancel()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

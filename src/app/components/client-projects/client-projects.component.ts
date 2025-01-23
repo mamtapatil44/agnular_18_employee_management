@@ -70,6 +70,7 @@ export class ClientProjectsComponent implements OnInit {
  onProjectSave(){
   this.clientService.addUpdateClientProject(this.projectForm.value).subscribe((res)=>{
     if(res.result){
+      this.toasterService.showToast('Project added successfully!', 'success');
      this.getAllClientProjects();
      this.projectForm.reset();
     }
