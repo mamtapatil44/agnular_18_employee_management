@@ -131,7 +131,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   async onDelete(empId: number) {
-    const isDelete =  await this.confirmService.confirm("Are you sure you want to delete this employee?")
+    const isDelete =  await this.confirmService.confirm("Are you sure you want to delete this employee?");
     if(isDelete){
     this.masterService.deleteEmployee(empId).subscribe(response => {
       this.toasterService.showToast('Employee deleted successfully!', 'success');
