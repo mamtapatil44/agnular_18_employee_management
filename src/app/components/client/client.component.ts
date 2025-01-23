@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { LoaderService } from '../../services/loader.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ToasterService } from '../../services/toaster.service';
+import { ConfirmService } from '../../services/confirm.service';
 
 @Component({
   selector: 'app-client',
@@ -17,6 +19,8 @@ export class ClientComponent implements OnInit {
   clientList: Client[] = [];
   clientService = inject(ClientService)
   loaderService = inject(LoaderService)
+  toasterService = inject(ToasterService);
+  confirmService = inject(ConfirmService);
   currentPage :number =1;
 
   ngOnInit(): void {
@@ -39,7 +43,7 @@ export class ClientComponent implements OnInit {
     this.clientService.addUpdateClients(this.clientObj).subscribe((res) => {
       console.log("res", res);
       if (res.result) {
-        alert("Client added successfully.....")
+        this.toasterService.showToast('Client updated successfully!', 'success');
         this.getAllCliensts();
         this.clientObj = new Client();
       }
@@ -47,12 +51,13 @@ export class ClientComponent implements OnInit {
     })
 
   }
-  deleteClient(clientId: number) {
-    const isDelete = confirm("Are you want to delete");
+  async deleteClient(clientId: number) {
+    const isDelete =  await this.confirmService.confirm("Are you sure you want to delete this client?")
     if (isDelete) {
       this.clientService.deleteClient(clientId).subscribe((res) => {
         if (res.result) {
-          alert("Client deleted Successfully....")
+          this.toasterService.showToast('Client deleted successfully!', 'success');
+          this.getAllCliensts();
         }
       })
     }
