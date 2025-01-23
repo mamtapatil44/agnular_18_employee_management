@@ -110,6 +110,7 @@ export class EmployeeComponent implements OnInit {
         if (res.result) {
           this.toasterService.showToast('Employee added successfully!', 'success');
           this.getEmployeeList();
+          this.employeeForm.reset();
         }
       })
     } else {
@@ -135,4 +136,5 @@ export class EmployeeComponent implements OnInit {
       this.getEmployeeList();
     });
   }
+ 
 }
