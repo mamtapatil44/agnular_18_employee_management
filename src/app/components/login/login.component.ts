@@ -20,7 +20,7 @@ export class LoginComponent {
   onLogin(){
   if(this.loginObj.email === "mamta" && this.loginObj.password === '12345'){
     localStorage.setItem("user",this.loginObj.email)
-  this.router.navigateByUrl('/client')
+  this.router.navigateByUrl('/master')
   }else{
     alert("Wrong credentials.....")
   }

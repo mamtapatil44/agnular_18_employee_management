@@ -23,12 +23,12 @@ export class EmployeeComponent implements OnInit {
   toasterService = inject(ToasterService);
   confirmService = inject(ConfirmService);
   employeeForm: FormGroup = new FormGroup({
-    roleId: new FormControl(0, Validators.required),
+    roleId: new FormControl('', Validators.required),
     empCode: new FormControl('', Validators.required),
     empId: new FormControl(0),
     empName: new FormControl('', Validators.required),
     empEmailId: new FormControl('', [Validators.required, Validators.email]),
-    empDesignationId: new FormControl(0),
+    empDesignationId: new FormControl('', Validators.required),
     empContactNo: new FormControl('', Validators.required),
     empAltContactNo: new FormControl(''),
     empPersonalEmailId: new FormControl('', [Validators.email]),
@@ -124,17 +124,21 @@ export class EmployeeComponent implements OnInit {
   getEmployeeList() {
     this.loaderService.showLoader();
     this.masterService.getAllEmployee().subscribe((res => {
-      console.log("res==== ", res)
       this.employeeList = res.data;
       this.loaderService.hideLoader();
     }))
-    this.loaderService.hideLoader();
+    // this.loaderService.hideLoader();
   }
 
-  onDelete(empId: number) {
+  async onDelete(empId: number) {
+    const isDelete =  await this.confirmService.confirm("Are you sure you want to delete this employee?")
+    if(isDelete){
     this.masterService.deleteEmployee(empId).subscribe(response => {
+      this.toasterService.showToast('Employee deleted successfully!', 'success');
       this.getEmployeeList();
-    });
+    },(err)=>{
+      this.toasterService.showToast('Failed to delete employee. Please try again.', 'error');
+    });}
   }
  
 }
